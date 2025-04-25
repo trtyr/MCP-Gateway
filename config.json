@@ -1,0 +1,30 @@
+{
+    "powershell": {
+        "type": "stdio",
+        "command": "python",
+        "args": [
+            "stdio_servers/powershell_server.py"
+        ]
+    },
+    "cmd": {
+        "type": "stdio",
+        "command": "python",
+        "args": [
+            "stdio_servers/cmd_server.py"
+        ]
+    },
+    "wmic": {
+        "type": "stdio",
+        "command": "python",
+        "args": [
+            "stdio_servers/wmi_server.py"
+        ]
+    },
+    "bash": {
+        "type": "stdio",
+        "command": "python",
+        "args": [
+            "stdio_servers/bash_server.py"
+        ]
+    }
+}
