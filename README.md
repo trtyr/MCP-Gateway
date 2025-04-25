@@ -90,7 +90,7 @@ uv run python ./main.py -h
 输出结果类似：
 
 ```plaintext
-usage: main.py [-h] [--host HOST] [--port PORT] [--log-level {debug,info,warning,error,critical}] [--reload]
+usage: main.py [-h] [--host HOST] [--port PORT] [--log-level {debug,info,warning,error,critical}]
 
 启动 MCP_Bridge_Server v3.0.0
 
@@ -100,7 +100,6 @@ options:
   --port PORT           端口 (默认: 9000)
   --log-level {debug,info,warning,error,critical}
                         设置文件日志级别 (默认为 info)
-  --reload              启用自动重载 (开发时使用)
 ```
 
 ### 启动项目
