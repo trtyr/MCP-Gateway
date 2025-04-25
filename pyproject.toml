@@ -1,0 +1,12 @@
+[project]
+name = "v2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.6.0",
+    "pywin32>=310",
+    "rich>=14.0.0",
+    "wmi>=1.5.1",
+]
