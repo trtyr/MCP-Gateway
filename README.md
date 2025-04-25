@@ -1,5 +1,9 @@
 # MCP Gateway
 
+## 许可证
+
+本项目采用 GNU General Public License v3.0 许可证 - 查看[LICENSE](LICENSE)文件了解更多详情。
+
 ## 项目概述
 
 MCP Gateway 是一个基于 Python 构建的应用程序。它扮演着**中央网关**的角色，能够连接并聚合来自多个后端 MCP 服务器（无论这些服务器使用 Stdio 还是 SSE 协议进行通信）所提供的能力。最终，它通过一个统一的 **SSE** 端点 (`/sse`) 将这些聚合后的能力暴露给上游的 MCP 客户端。
