@@ -396,11 +396,11 @@ async def _forward_request_helper(prefixed_name: str, method_name: str,
             f"成功从后端 '{server_name}' 收到 '{method_name}' 的结果 (Capability: '{prefixed_name}')。"
         )
         return result
-    except mcp_types.Error as e:
+        # except mcp_types.Error as e:
 
-        logger.warning(
-            f"后端 '{server_name}' 返回 MCP 错误 (Capability: '{prefixed_name}'): Type={e.type}, Msg='{e.message}'"
-        )
+        #     logger.warning(
+        #         f"后端 '{server_name}' 返回 MCP 错误 (Capability: '{prefixed_name}'): Type={e.type}, Msg='{e.message}'"
+        #     )
         raise e
     except asyncio.TimeoutError as e:
         logger.error(

@@ -3,7 +3,6 @@ import logging
 from typing import Dict, List, Tuple, Optional
 
 from mcp import types as mcp_types
-
 from mcp import ClientSession
 
 logger = logging.getLogger(__name__)
@@ -12,10 +11,10 @@ logger = logging.getLogger(__name__)
 class CapabilityRegistry:
 
     def __init__(self):
-
         self._aggregated_tools: List[mcp_types.Tool] = []
         self._aggregated_resources: List[mcp_types.Resource] = []
         self._aggregated_prompts: List[mcp_types.Prompt] = []
+
         self._routing_map: Dict[str, Tuple[str, str]] = {}
         logger.info("Capability注册表 CapabilityRegistry 已初始化。")
 
@@ -89,19 +88,25 @@ class CapabilityRegistry:
                         f"[{server_name}] 发现了一个没有名称的工具，已跳过: {tool!r}")
                     continue
 
-                prefixed_name = f"{server_name}/{tool.name}"
+                original_name = tool.name
 
-                prefixed_tool = mcp_types.Tool(name=prefixed_name,
-                                               description=tool.description,
-                                               inputSchema=tool.inputSchema)
-                self._aggregated_tools.append(prefixed_tool)
-                self._routing_map[prefixed_name] = (server_name, tool.name)
+                if original_name in self._routing_map:
+                    existing_server, _ = self._routing_map[original_name]
+                    logger.warning(
+                        f"[{server_name}] 发现重复的工具名称 '{original_name}'。该名称已被服务器 '{existing_server}' 注册。将忽略来自 '{server_name}' 的同名工具。"
+                    )
+                    continue
+
+                self._aggregated_tools.append(tool)
+
+                self._routing_map[original_name] = (server_name, original_name)
+
                 registered_count += 1
 
             if registered_count > 0:
-                logger.info(f"[{server_name}] 成功注册 {registered_count} 个工具。")
+                logger.info(f"[{server_name}] 成功注册 {registered_count} 个唯一工具。")
             else:
-                logger.info(f"[{server_name}] 未发现或注册任何工具。")
+                logger.info(f"[{server_name}] 未发现或注册任何新工具。")
 
         except asyncio.TimeoutError:
             logger.error(
@@ -112,7 +117,6 @@ class CapabilityRegistry:
                 f"[{server_name}] 调用 list_tools() 时发生 MCP 错误: Type={e.type}, Msg='{e.message}'",
                 exc_info=True)
         except Exception as e:
-
             logger.exception(f"[{server_name}] 发现工具时发生未知错误: {e}")
 
         logger.debug(f"[{server_name}] 开始发现资源...")
@@ -125,7 +129,6 @@ class CapabilityRegistry:
             )
 
             original_resources: List[mcp_types.Resource] = []
-
             if hasattr(list_resources_result, 'resources') and isinstance(
                     list_resources_result.resources, list):
                 original_resources = list_resources_result.resources
@@ -157,20 +160,25 @@ class CapabilityRegistry:
                         f"[{server_name}] 发现了一个没有名称的资源，已跳过: {resource!r}")
                     continue
 
-                prefixed_name = f"{server_name}/{resource.name}"
-                prefixed_resource = mcp_types.Resource(
-                    name=prefixed_name,
-                    description=resource.description,
-                    inputSchema=resource.inputSchema,
-                    return_content_type=resource.return_content_type)
-                self._aggregated_resources.append(prefixed_resource)
-                self._routing_map[prefixed_name] = (server_name, resource.name)
+                original_name = resource.name
+
+                if original_name in self._routing_map:
+                    existing_server, _ = self._routing_map[original_name]
+                    logger.warning(
+                        f"[{server_name}] 发现重复的资源名称 '{original_name}'。该名称已被服务器 '{existing_server}' 注册。将忽略来自 '{server_name}' 的同名资源。"
+                    )
+                    continue
+
+                self._aggregated_resources.append(resource)
+
+                self._routing_map[original_name] = (server_name, original_name)
+
                 registered_count += 1
 
             if registered_count > 0:
-                logger.info(f"[{server_name}] 成功注册 {registered_count} 个资源。")
+                logger.info(f"[{server_name}] 成功注册 {registered_count} 个唯一资源。")
             else:
-                logger.info(f"[{server_name}] 未发现或注册任何资源。")
+                logger.info(f"[{server_name}] 未发现或注册任何新资源。")
 
         except asyncio.TimeoutError:
             logger.error(
@@ -193,7 +201,6 @@ class CapabilityRegistry:
             )
 
             original_prompts: List[mcp_types.Prompt] = []
-
             if hasattr(list_prompts_result, 'prompts') and isinstance(
                     list_prompts_result.prompts, list):
                 original_prompts = list_prompts_result.prompts
@@ -224,19 +231,25 @@ class CapabilityRegistry:
                         f"[{server_name}] 发现了一个没有名称的提示，已跳过: {prompt!r}")
                     continue
 
-                prefixed_name = f"{server_name}/{prompt.name}"
-                prefixed_prompt = mcp_types.Prompt(
-                    name=prefixed_name,
-                    description=prompt.description,
-                    inputSchema=prompt.inputSchema)
-                self._aggregated_prompts.append(prefixed_prompt)
-                self._routing_map[prefixed_name] = (server_name, prompt.name)
+                original_name = prompt.name
+
+                if original_name in self._routing_map:
+                    existing_server, _ = self._routing_map[original_name]
+                    logger.warning(
+                        f"[{server_name}] 发现重复的提示名称 '{original_name}'。该名称已被服务器 '{existing_server}' 注册。将忽略来自 '{server_name}' 的同名提示。"
+                    )
+                    continue
+
+                self._aggregated_prompts.append(prompt)
+
+                self._routing_map[original_name] = (server_name, original_name)
+
                 registered_count += 1
 
             if registered_count > 0:
-                logger.info(f"[{server_name}] 成功注册 {registered_count} 个提示。")
+                logger.info(f"[{server_name}] 成功注册 {registered_count} 个唯一提示。")
             else:
-                logger.info(f"[{server_name}] 未发现或注册任何提示。")
+                logger.info(f"[{server_name}] 未发现或注册任何新提示。")
 
         except asyncio.TimeoutError:
             logger.error(
@@ -252,18 +265,15 @@ class CapabilityRegistry:
         logger.debug(f"[{server_name}] Capability发现完成。")
 
     def get_aggregated_tools(self) -> List[mcp_types.Tool]:
-
         return self._aggregated_tools
 
     def get_aggregated_resources(self) -> List[mcp_types.Resource]:
-
         return self._aggregated_resources
 
     def get_aggregated_prompts(self) -> List[mcp_types.Prompt]:
-
         return self._aggregated_prompts
 
     def resolve_capability(self,
-                           prefixed_name: str) -> Optional[Tuple[str, str]]:
+                           capability_name: str) -> Optional[Tuple[str, str]]:
 
-        return self._routing_map.get(prefixed_name)
+        return self._routing_map.get(capability_name)
