@@ -42,6 +42,14 @@ MCP Gateway 是一个基于 Python 构建的应用程序。它扮演着**中央�
 - **Windows PowerShell 命令执行工具 (`powershell_server.py`)**: 在 Windows 环境下执行 PowerShell 命令。
 - **Windows WMI 查询工具 (`wmi_server.py`)**: 在 Windows 环境下执行 WMI 查询。
 
+> 如果在 Linux 环境中出现如下报错
+>
+> ```
+> error: Distribution `pywin32==310 @ registry+https://pypi.org/simple` can't be installed because it doesn't have a source distribution or wheel for the current platform>
+> ```
+>
+> 请卸载 wmi 模块：`uv remove wmi`
+
 ## 安装与设置
 
 本项目使用 Python 编写，推荐使用 `uv` 进行环境和依赖管理。
@@ -121,7 +129,7 @@ uv run python .\main.py --host 0.0.0.0 --port 9000 --log-level debug
 
 默认地址为 `http://<服务器IP地址>:9000/sse` (如果使用默认端口)。
 
-**示例 (使用 MCP Inspector 连接):**
+**示例 (使用 ChatWise 连接):**
 
 1.  选择 `SSE` 连接类型。
 2.  输入 Gateway 的 SSE URL (例如 `http://127.0.0.1:9000/sse`)。
