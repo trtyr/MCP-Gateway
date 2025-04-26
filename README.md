@@ -17,20 +17,20 @@ MCP Gateway 是一个基于 Python 构建的应用程序。它扮演着**中央�
 
 ```plaintext
 .
-├── config.json                 # 核心配置文件：定义要连接和管理的后端 MCP 服务器。
-├── main.py                     # 程序入口：解析命令行参数，设置日志，并启动 Web 服务器。
-├── bridge_app.py               # Starlette 应用核心：处理 MCP 请求的转发、SSE 连接管理。
+├── config.json                     # 核心配置文件：定义要连接和管理的后端 MCP 服务器。
+├── main.py                         # 程序入口：解析命令行参数，设置日志，并启动 Web 服务器。
+├── bridge_app.py                # Starlette 应用核心：处理 MCP 请求的转发、SSE 连接管理。
 ├── client_manager.py           # 客户端管理器：负责建立和维护与后端 MCP 服务器的连接会话。
 ├── capability_registry.py      # 能力注册表：动态发现、注册并管理所有后端 MCP 服务器提供的能力。
 ├── config_loader.py            # 配置加载器：负责加载并严格验证 config.json 文件的格式和内容。
-├── errors.py                   # 自定义异常：定义项目特定的错误类型，如配置错误、后端服务器错误。
-├── rich_handler.py             # Rich 日志处理器：提供美化的、结构化的控制台日志输出。
-├── servers/                    # 存放内置/示例的后端 MCP 服务器脚本。
+├── errors.py                       # 自定义异常：定义项目特定的错误类型，如配置错误、后端服务器错误。
+├── rich_handler.py                 # Rich 日志处理器：提供美化的、结构化的控制台日志输出。
+├── servers/                            # 存放内置/示例的后端 MCP 服务器脚本。
 │   ├── bash_server.py          # <-- 内置 Bash 命令执行工具 (Linux/macOS/WSL)
-│   ├── cmd_server.py           # <-- 内置 Windows CMD 命令执行工具 (Windows Only)
+│   ├── cmd_server.py            # <-- 内置 Windows CMD 命令执行工具 (Windows Only)
 │   ├── powershell_server.py    # <-- 内置 Windows PowerShell 命令执行工具 (Windows Only)
-│   └── wmi_server.py           # <-- 内置 Windows WMI 查询工具 (Windows Only)
-└── logs/                       # 日志目录：存放运行时生成的日志文件 (自动创建)。
+│   └── wmi_server.py               # <-- 内置 Windows WMI 查询工具 (Windows Only)
+└── logs/                               # 日志目录：存放运行时生成的日志文件 (自动创建)。
 ```
 
 ## 内置 MCP Server
