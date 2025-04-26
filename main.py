@@ -148,7 +148,6 @@ def main():
         default='info',
         choices=['debug', 'info', 'warning', 'error', 'critical'],
         help='设置文件日志级别 (默认为 info)')
-    parser.add_argument('--reload', action='store_true', help='启用自动重载')
 
     args = parser.parse_args()
 
@@ -166,12 +165,13 @@ def main():
     else:
         logger.error("无法在 bridge_app 中找到 'app' 对象来存储 host/port。")
 
-    uvicorn.run("bridge_app:app",
-                host=args.host,
-                port=args.port,
-                log_level=args.log_level.lower(),
-                log_config=None,
-                reload=args.reload)
+    uvicorn.run(
+        "bridge_app:app",
+        host=args.host,
+        port=args.port,
+        log_level=args.log_level.lower(),
+        log_config=None,
+    )
 
 
 if __name__ == "__main__":
