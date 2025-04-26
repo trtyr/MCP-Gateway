@@ -275,7 +275,7 @@ class ClientManager:
             await self._exit_stack.aclose()
             logger.info("AsyncExitStack 已成功关闭所有上下文。")
         except Exception as e:
-            ilogger.exception(f"关闭 AsyncExitStack 时发生错误: {e}")
+            logger.exception(f"关闭 AsyncExitStack 时发生错误: {e}")
 
         self._sessions.clear()
         logger.info("客户端管理器 ClientManager 已关闭。")
