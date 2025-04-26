@@ -121,7 +121,7 @@ uv run python .\main.py --host 0.0.0.0 --port 9000 --log-level debug
 
 默认地址为 `http://<服务器IP地址>:9000/sse` (如果使用默认端口)。
 
-**示例 (使用 MCP Inspector 连接):**
+**示例 (使用 ChatWise 连接):**
 
 1.  选择 `SSE` 连接类型。
 2.  输入 Gateway 的 SSE URL (例如 `http://127.0.0.1:9000/sse`)。
