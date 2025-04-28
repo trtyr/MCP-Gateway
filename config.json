@@ -1,37 +1,34 @@
 {
   "bash": {
     "type": "stdio",
-    "command": "python",
+    "command": "uv",
     "args": [
+      "run",
       "servers/bash_server.py"
     ]
   },
-  "fofa-mcp-server": {
+  "powershell": {
     "type": "stdio",
     "command": "uv",
     "args": [
       "run",
-      "servers/fofa-mcp-server/main.py"
-    ],
-    "env": {
-      "FOFA_KEY": "5cb8f61e6a2f865348d72aac79096e3a"
-    }
+      "servers/powershell_server.py"
+    ]
   },
-  "enscan_go": {
-    "type": "sse",
-    "url": "http://127.0.0.1:8001/sse",
+  "cmd": {
+    "type": "stdio",
     "command": "uv",
     "args": [
       "run",
-      "servers/enscan_server.py",
-      "--port",
-      "8001",
-      "--host",
-      "127.0.0.1"
+      "servers/cmd_server.py"
     ]
   },
-  "postgres": {
-    "type": "sse",
-    "url": "http://localhost:9001/sse"
+  "wmi": {
+    "type": "stdio",
+    "command": "uv",
+    "args": [
+      "run",
+      "servers/wmi_server.py"
+    ]
   }
 }
