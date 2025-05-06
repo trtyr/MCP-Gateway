@@ -87,12 +87,7 @@ BASE_LOGGING_CONFIG = {
 
 
 def setup_logging(log_level_str: str):
-    """Configures file logging dynamically."""
     log_level = log_level_str.upper()
-
-    if log_level not in ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']:
-        print(f"警告：无效的日志级别 '{log_level_str}'，将使用 INFO 级别。")
-        log_level = 'INFO'
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     dynamic_log_filename = os.path.join(LOG_DIR,
@@ -127,15 +122,12 @@ def setup_logging(log_level_str: str):
 
 
 def main():
-    """Main entry point for the application."""
     try:
-
         if not os.path.exists(LOG_DIR):
             os.makedirs(LOG_DIR)
             print(f"日志目录 '{LOG_DIR}' 已创建。")
     except OSError as e:
         print(f"错误：无法创建日志目录 '{LOG_DIR}': {e}")
-
     try:
         from bridge_app import SERVER_NAME, SERVER_VERSION
     except ImportError as e:
@@ -148,11 +140,8 @@ def main():
     parser = argparse.ArgumentParser(
         description=f"启动 {SERVER_NAME} v{SERVER_VERSION}")
 
-    parser.add_argument('--host',
-                        type=str,
-                        default='0.0.0.0',
-                        help='主机地址 (默认为 0.0.0.0)')
-    parser.add_argument('--port', type=int, default=9000, help='端口 (默认为 9000)')
+    parser.add_argument('--host', type=str, default='0.0.0.0', help='主机地址')
+    parser.add_argument('--port', type=int, default=9000, help='端口')
     parser.add_argument(
         '--log-level',
         type=str,
@@ -167,11 +156,7 @@ def main():
     bridge_app.ACTUAL_LOG_FILE = actual_log_file
 
     logger = logging.getLogger(__name__)
-    logger.info(f"---- {SERVER_NAME} v{SERVER_VERSION} 启动 ----")
-    logger.info(
-        f"命令行参数: host={args.host}, port={args.port}, log-level={args.log_level}"
-    )
-    logger.info(f"日志文件: {actual_log_file}")
+    logger.info(f"---- Uvicorn 启动日志 (Level: {args.log_level.upper()}) ----")
 
     if hasattr(bridge_app, 'app'):
         bridge_app.app.state.host = args.host
