@@ -1,10 +1,8 @@
 {
-  "bash": {
+  "powershell": {
     "type": "stdio",
     "command": "python",
-    "args": [
-      "servers/bash_server.py"
-    ]
+    "args": ["servers/powershell_server.py"]
   },
   "fofa-mcp-server": {
     "type": "stdio",
