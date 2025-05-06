@@ -11,7 +11,6 @@
     "type": "stdio",
     "command": "python",
     "args": [
-<<<<<<< HEAD
       "run",
       "servers/powershell_server.py"
     ]
@@ -29,7 +28,6 @@
     "command": "uv",
     "args": [
       "run",
-=======
       "servers/powershell_server.py"
     ]
   },
@@ -44,7 +42,6 @@
     "type": "stdio",
     "command": "python",
     "args": [
->>>>>>> a0acf2a9961276d2e28d9e1c6941c4eb895c71b0
       "servers/wmi_server.py"
     ]
   }

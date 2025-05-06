@@ -26,29 +26,8 @@ MCP Gateway 是一个基于 Python 构建的应用程序。它扮演着**中央�
 ├── errors.py                       # 自定义异常：定义项目特定的错误类型，如配置错误、后端服务器错误。
 ├── rich_handler.py                 # Rich 日志处理器：提供美化的、结构化的控制台日志输出。
 ├── servers/                            # 存放内置/示例的后端 MCP 服务器脚本。
-│   ├── bash_server.py          # <-- 内置 Bash 命令执行工具 (Linux/macOS/WSL)
-│   ├── cmd_server.py            # <-- 内置 Windows CMD 命令执行工具 (Windows Only)
-│   ├── powershell_server.py    # <-- 内置 Windows PowerShell 命令执行工具 (Windows Only)
-│   └── wmi_server.py               # <-- 内置 Windows WMI 查询工具 (Windows Only)
 └── logs/                               # 日志目录：存放运行时生成的日志文件 (自动创建)。
 ```
-
-## 内置 MCP Server
-
-本项目自带了四个可以直接使用的后端 MCP Server 工具，无需额外配置即可在 `config.json` 中启用：
-
-- **Bash 命令执行工具 (`bash_server.py`)**: 在 Linux, macOS 或 WSL 环境下执行 Bash 命令。
-- **Windows CMD 命令执行工具 (`cmd_server.py`)**: 在 Windows 环境下执行 CMD 命令。
-- **Windows PowerShell 命令执行工具 (`powershell_server.py`)**: 在 Windows 环境下执行 PowerShell 命令。
-- **Windows WMI 查询工具 (`wmi_server.py`)**: 在 Windows 环境下执行 WMI 查询。
-
-> 如果在 Linux 环境中出现如下报错
->
-> ```
-> error: Distribution `pywin32==310 @ registry+https://pypi.org/simple` can't be installed because it doesn't have a source distribution or wheel for the current platform>
-> ```
->
-> 请卸载 wmi 模块：`uv remove wmi`
 
 ## 安装与设置
 
@@ -112,6 +91,8 @@ options:
 
 ### 启动项目
 
+**注意：新版本已经去掉Rich美化，真实效果以实际项目运行结果为准**
+
 使用 `uv run python main.py` 启动服务器，可以指定 host, port 和 log-level：
 
 ```bash
@@ -119,11 +100,13 @@ options:
 uv run python .\main.py --host 0.0.0.0 --port 9000 --log-level debug
 ```
 
-启动后，你会看到类似下图的 Rich 美化控制台输出，显示服务器状态、连接信息和加载的工具：
+启动后，你会看到类似下图的控制台输出，显示服务器状态、连接信息和加载的工具：
 
 ![](./img/1.png)
 
 ### MCP 客户端连接
+
+**注意：新版本已经去掉Rich美化，真实效果以实际项目运行结果为准**
 
 启动 MCP Gateway 后，你可以使用任何兼容 MCP 的客户端（如 Cline, Cursor, Claude Desktop 或自定义客户端）连接到 Gateway 提供的 SSE 端点。
 
@@ -142,6 +125,8 @@ uv run python .\main.py --host 0.0.0.0 --port 9000 --log-level debug
 ![](./img/3.png)
 
 ### 日志
+
+**注意：新版本已经去掉Rich美化，真实效果以实际项目运行结果为准**
 
 运行时日志会自动保存在项目根目录下的 `logs` 文件夹中。日志文件名包含时间戳和日志级别，方便追溯问题。
 

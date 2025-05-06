@@ -28,29 +28,8 @@ MCP Gateway is an application built with Python. It acts as a **central gateway*
 ├── errors.py                       # Custom exceptions: Defines project-specific error types, such as configuration errors and backend server errors.
 ├── rich_handler.py                 # Rich logging handler: Provides beautified, structured console log output.
 ├── servers/                        # Contains built-in/example backend MCP server scripts.
-│   ├── bash_server.py              # <-- Built-in Bash command execution tool (Linux/macOS/WSL)
-│   ├── cmd_server.py               # <-- Built-in Windows CMD command execution tool (Windows Only)
-│   ├── powershell_server.py        # <-- Built-in Windows PowerShell command execution tool (Windows Only)
-│   └── wmi_server.py               # <-- Built-in Windows WMI query tool (Windows Only)
 └── logs/                           # Log directory: Stores runtime log files (created automatically).
 ```
-
-## Built-in MCP Servers
-
-This project comes with four backend MCP Server tools that can be used directly and enabled in `config.json` without additional configuration:
-
-- **Bash Command Execution Tool (`bash_server.py`)**: Executes Bash commands in Linux, macOS, or WSL environments.
-- **Windows CMD Command Execution Tool (`cmd_server.py`)**: Executes CMD commands in Windows environments.
-- **Windows PowerShell Command Execution Tool (`powershell_server.py`)**: Executes PowerShell commands in Windows environments.
-- **Windows WMI Query Tool (`wmi_server.py`)**: Executes WMI queries in Windows environments.
-
-> If you encounter the following error in a Linux environment:
->
-> ```
-> error: Distribution `pywin32==310 @ registry+https://pypi.org/simple` can't be installed because it doesn't have a source distribution or wheel for the current platform>
-> ```
->
-> Please uninstall the `wmi` module: `uv remove wmi`
 
 ## Installation and Setup
 
@@ -114,6 +93,8 @@ options:
 
 ### Start the Project
 
+**Note: the new version has been removed Rich embellishment, the real effect to the actual project run results shall prevail*.
+
 Use `uv run python main.py` to start the server. You can specify the `host`, `port`, and `log-level`:
 
 ```bash
@@ -126,6 +107,8 @@ After starting, you will see a Rich beautified console output similar to the ima
 ![](./img/1.png)
 
 ### MCP Client Connection
+
+**Note: the new version has been removed Rich embellishment, the real effect to the actual project run results shall prevail*.
 
 After starting MCP Gateway, you can use any MCP-compatible client (such as Cline, Cursor, Claude Desktop, or a custom client) to connect to the SSE endpoint provided by the Gateway.
 
