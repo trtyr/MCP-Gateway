@@ -18,7 +18,7 @@ except ImportError:
 
 from errors import BackendServerError, ConfigurationError
 
-logger = logging.getLogger(__name__) # For ClientManager's own logs
+logger = logging.getLogger(__name__) 
 
 DEFAULT_LOCAL_SSE_STARTUP_DELAY = 5
 DEFAULT_MCP_INITIALIZE_TIMEOUT = 15
@@ -34,7 +34,7 @@ async def _log_subprocess_stream(stream: Optional[asyncio.StreamReader], server_
                 logger.debug(f"[{server_name}-{stream_name}] stream ended (EOF).")
                 break
             line = line_bytes.decode(errors='replace').strip()
-            if line: # Avoid logging empty lines if not desired
+            if line: 
                 logger.info(f"[{server_name}-{stream_name}] {line}")
         except asyncio.CancelledError:
             logger.debug(f"[{server_name}-{stream_name}] logging task cancelled.")
@@ -70,7 +70,7 @@ async def _manage_subprocess(
         )
         logger.info(f"[{server_name}] 本地进程已启动 (PID: {process.pid})。")
         
-        # Start tasks to log stdout and stderr from the subprocess
+        
         if process.stdout:
             stdout_logger_task = asyncio.create_task(
                 _log_subprocess_stream(process.stdout, server_name, "stdout")
@@ -92,7 +92,7 @@ async def _manage_subprocess(
         if stderr_logger_task and not stderr_logger_task.done():
             stderr_logger_task.cancel()
         
-        # Wait for logger tasks to finish cancellation
+        
         if stdout_logger_task or stderr_logger_task:
             await asyncio.gather(stdout_logger_task, stderr_logger_task, return_exceptions=True)
             logger.debug(f"[{server_name}] Subprocess stream logger tasks finished.")
@@ -153,13 +153,13 @@ class ClientManager:
                 if not isinstance(stdio_params, StdioServerParameters):
                     logger.error(f"[{server_name}] Stdio 配置无效: 'params' 必须是 StdioServerParameters 实例。")
                     raise ConfigurationError(f"服务器 '{server_name}' 的 Stdio 配置无效。")
-                # For stdio, _manage_subprocess is part of stdio_client's responsibilities if command is involved
-                # If stdio_client itself launches the process, its stdout/stderr needs to be handled by mcp.py library
-                # or we'd need to wrap stdio_client if it doesn't log those streams.
-                # The current _manage_subprocess is for local SSE.
-                # For stdio, the mcp.py library's stdio_client handles the subprocess.
-                # We assume mcp.py's stdio_client does not print subprocess output directly to console.
-                # If it does, that's a library behavior we can't directly control here without modifying mcp.py
+                
+                
+                
+                
+                
+                
+                
                 transport_context = stdio_client(stdio_params)
 
 

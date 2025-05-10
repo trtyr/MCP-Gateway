@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import os
-# import argparse # Removed: argparse is handled by main.py
+
 from contextlib import asynccontextmanager
 from typing import Any, AsyncIterator, Dict, List, Optional, Tuple
 
@@ -30,7 +30,7 @@ POST_MESSAGES_PATH = "/messages/"
 DEFAULT_ACTUAL_LOG_FILE = "unknown_bridge_log.log"
 DEFAULT_FILE_LOG_LEVEL = "INFO"
 
-logger = logging.getLogger(__name__) # For file logging from this module
+logger = logging.getLogger(__name__) 
 
 mcp_server = McpServer(SERVER_NAME)
 mcp_server.manager: Optional[ClientManager] = None
@@ -61,14 +61,14 @@ def display_status_on_console(
     if tools_list is not None:
         tool_info_line = f"MCP 工具: {len(tools_list)} 个已加载"
         console_lines.append(tool_info_line)
-        # Optionally list tool names if desired for console, keeping it brief
-        # if tools_list:
-        #     for tool in tools_list[:3]: # Display first few tools
-        #         console_lines.append(f"  - {tool.name}")
-        #     if len(tools_list) > 3:
-        #         console_lines.append(f"  ... 和其他 {len(tools_list) - 3} 个工具")
-        # else:
-        #     console_lines.append("  未加载任何工具。")
+        
+        
+        
+        
+        
+        
+        
+        
             
     if error_message:
         console_lines.append(f"错误: {error_message}")
@@ -322,11 +322,11 @@ async def handle_list_prompts() -> List[mcp_types.Prompt]:
     return prompts
 
 @mcp_server.call_tool()
-async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> List[Any]: # Changed return type hint
+async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> List[Any]: 
     logger.debug(f"处理 callTool: name='{name}'")
     result = await _forward_request_helper(name, "call_tool", arguments, mcp_server)
     if isinstance(result, mcp_types.CallToolResult):
-        return result.content # CallToolResult.content is List[ContentPart], which is List[Any]
+        return result.content 
     logger.error(f"call_tool 转发返回了非预期的类型: {type(result)} for tool '{name}'")
     raise BackendServerError(f"调用工具 '{name}' 后端返回类型错误。")
 

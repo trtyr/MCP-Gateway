@@ -2,7 +2,7 @@
 定义项目特定的异常类。
 Defines project-specific exception classes.
 """
-from typing import Optional, Type  # Added Optional
+from typing import Optional, Type  
 
 
 class BridgeBaseError(Exception):
@@ -28,12 +28,12 @@ class BackendServerError(BridgeBaseError):
                  original_exception: Optional[Exception] = None):
         self.server_name = server_name
         self.original_exception = original_exception
-        full_message = f"后端服务器错误"  # Backend server error
+        full_message = f"后端服务器错误"  
         if server_name:
-            full_message += f" (服务器: {server_name})"  # (Server: X)
+            full_message += f" (服务器: {server_name})"  
         full_message += f": {message}"
         if original_exception:
-            full_message += f" (原始错误: {type(original_exception).__name__})"  # (Original error: Y)
+            full_message += f" (原始错误: {type(original_exception).__name__})"  
         super().__init__(full_message)
 
 
@@ -44,7 +44,7 @@ class CapabilityConflictError(BridgeBaseError):
     def __init__(self, capability_name: str, server1_name: str,
                  server2_name: str):
         message = (
-            f"能力名称冲突: '{capability_name}' 同时由服务器 '{server1_name}' 和 '{server2_name}' 提供。"  # Capability name conflict
-            " 请确保服务器名称或能力前缀唯一。"  # Please ensure server names or capability prefixes are unique.
+            f"能力名称冲突: '{capability_name}' 同时由服务器 '{server1_name}' 和 '{server2_name}' 提供。"  
+            " 请确保服务器名称或能力前缀唯一。"  
         )
         super().__init__(message)
