@@ -26,8 +26,7 @@ MCP Gateway is an application built with Python. It acts as a **central gateway*
 ├── capability_registry.py          # Capability registry: Dynamically discovers, registers, and manages capabilities provided by all backend MCP servers.
 ├── config_loader.py                # Configuration loader: Responsible for loading and strictly validating the format and content of the `config.json` file.
 ├── errors.py                       # Custom exceptions: Defines project-specific error types, such as configuration errors and backend server errors.
-├── rich_handler.py                 # Rich logging handler: Provides beautified, structured console log output.
-├── servers/                        # Contains built-in/example backend MCP server scripts.
+├── mods/                           # Contains built-in/example backend MCP server scripts.
 └── logs/                           # Log directory: Stores runtime log files (created automatically).
 ```
 
